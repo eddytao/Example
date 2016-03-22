@@ -18,16 +18,42 @@ namespace Example.Service
 
         public void AddExample(Core.Domain.Example example)
         {
-
+            if (example==null)
+            {
+                throw new ArgumentNullException("example");
+            }
+            else
+            {
+                _dbContext.Example.Add(example);
+                _dbContext.SaveChanges();
+            }
         }
 
         public void DeleteExampleById(string Id)
         {
-
+            var example = GetExampleById(Id);
+            if (example == null)
+            {
+                throw new ArgumentNullException("example");
+            }
+            else
+            {
+                _dbContext.Example.Remove(example);
+                _dbContext.SaveChanges();
+            }
         }
         public void EditExample(Core.Domain.Example example)
         {
-
+            if (example == null)
+            {
+                throw new ArgumentNullException("example");
+            }
+            else
+            {
+                _dbContext.Example.Attach(example);
+                _dbContext.Entry(example).State = System.Data.Entity.EntityState.Modified;
+                _dbContext.SaveChanges();
+            }
         }
 
         public Core.Domain.Example GetExampleById(string Id)
