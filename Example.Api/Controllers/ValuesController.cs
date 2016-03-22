@@ -4,37 +4,83 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Example.Service;
+using Example.Data;
 
 namespace Example.Api.Controllers
 {
     [Authorize]
     public class ValuesController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        private ExampleService _exampleService;
+
+        public ValuesController():this(new ExampleService(new ExampleContext("ExampleContext")))
         {
-            return new string[] { "value1", "value2" };
+
+        }
+        public ValuesController(ExampleService exampleService)
+        {
+            this._exampleService = exampleService;
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        // POST api/AddExample
+        [HttpPost]
+        public IHttpActionResult AddExample(Core.Domain.Example example)
         {
-            return "value";
+            if (ModelState.IsValid)
+            {
+                _exampleService.AddExample(example);
+                return Ok();
+            }
+            else
+            {
+                return InternalServerError();
+            }
+            
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        // PUT api/
+        [HttpPut]
+        public IHttpActionResult EditExample(Core.Domain.Example example)
         {
+            if (ModelState.IsValid)
+            {
+                _exampleService.EditExample(example);
+                return Ok();
+            }
+            else
+            {
+                return InternalServerError();
+            }
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        // DELETE api/
+        [HttpDelete]
+        public IHttpActionResult DeleteExampleById(string Id)
         {
+            try
+            {
+                _exampleService.DeleteExampleById(Id);
+                return Ok();
+            }
+            catch (Exception exception)
+            {
+
+                throw exception;
+            }
+        }
+        public Core.Domain.Example GetExampleById(string Id)
+        {
+            return _exampleService.GetExampleById(Id);
         }
 
-        // DELETE api/values/5
-        public void Delete(int id)
+        public IEnumerable<Core.Domain.Example> GetAllExample()
         {
+            return _exampleService.GetAllExample();
+        }
+        public PageResult<Core.Domain.Example> GetExampleByPageResult(int pageNumber, int pageSize)
+        {
+            return _exampleService.GetExampleByPageResult(pageNumber,pageSize);
         }
     }
 }

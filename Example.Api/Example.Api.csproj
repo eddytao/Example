@@ -309,6 +309,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -317,6 +318,20 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Example.Core\Example.Core.csproj">
+      <Project>{8183da44-27ba-495f-9999-0ef1b61e3884}</Project>
+      <Name>Example.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Example.Data\Example.Data.csproj">
+      <Project>{08d4afb2-8dc5-4863-b2aa-d8064ef0078f}</Project>
+      <Name>Example.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Example.Service\Example.Service.csproj">
+      <Project>{dec0766e-6a92-4f66-973b-0e89561d893c}</Project>
+      <Name>Example.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
