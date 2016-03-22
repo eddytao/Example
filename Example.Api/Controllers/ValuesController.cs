@@ -9,7 +9,6 @@ using Example.Data;
 
 namespace Example.Api.Controllers
 {
-    [Authorize]
     public class ValuesController : ApiController
     {
         private ExampleService _exampleService;
